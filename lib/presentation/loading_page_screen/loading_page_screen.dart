@@ -69,7 +69,7 @@ class LoadingPageScreenState extends State<LoadingPageScreen> {
                   right: 7.h,
                 ),
                 onPressed: () {
-                  onTapCreruncompte(context);
+                  onTapCreeruncompte(context);
                 },
               )
             ],
@@ -87,7 +87,7 @@ class LoadingPageScreenState extends State<LoadingPageScreen> {
   }
 
   /// Navigates to the signUpPageScreen when the action is triggered.
-  onTapCreruncompte(BuildContext context) {
+  onTapCreeruncompte(BuildContext context) {
     NavigatorService.pushNamed(
       AppRoutes.signUpPageScreen,
     );
