@@ -11,6 +11,7 @@ import '../models/log_in_page_model.dart';
 // ignore_for_file: must_be_immutable
 class LogInPageProvider extends ChangeNotifier {
   TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   LogInPageModel logInPageModelObj = LogInPageModel();
 
@@ -18,5 +19,6 @@ class LogInPageProvider extends ChangeNotifier {
   void dispose() {
     super.dispose();
     emailController.dispose();
+    passwordController.dispose();
   }
 }

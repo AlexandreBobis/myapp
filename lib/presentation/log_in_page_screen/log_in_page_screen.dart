@@ -42,7 +42,10 @@ class LogInPageScreenState extends State<LogInPageScreen> {
         body: Center(
           child: SingleChildScrollView(
             padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom,
+              bottom: MediaQuery
+                  .of(context)
+                  .viewInsets
+                  .bottom,
             ),
             child: SizedBox(
               height: SizeUtils.height,
@@ -72,9 +75,9 @@ class LogInPageScreenState extends State<LogInPageScreen> {
                       Padding(
                         padding: EdgeInsets.only(left: 2.h),
                         child:
-                            Selector<LogInPageProvider, TextEditingController?>(
+                        Selector<LogInPageProvider, TextEditingController?>(
                           selector: (context, provider) =>
-                              provider.emailController,
+                          provider.emailController,
                           builder: (context, emailController, child) {
                             return CustomTextFormField(
                               controller: emailController,
@@ -84,12 +87,16 @@ class LogInPageScreenState extends State<LogInPageScreen> {
                               validator: (value) {
                                 if (value == null ||
                                     (!isValidEmail(value, isRequired: true))) {
+                                  // Fonction pour check la validité du mail
                                   return "err_msg_please_enter_valid_email".tr;
                                 }
                                 return null;
                               },
                               borderDecoration:
-                                  TextFormFieldStyleHelper.underLinePrimary,
+                              TextFormFieldStyleHelper.underLinePrimary,
+                              textStyle: TextStyle(color: Colors.white,
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 22.0),
                             );
                           },
                         ),
@@ -97,16 +104,36 @@ class LogInPageScreenState extends State<LogInPageScreen> {
                       SizedBox(height: 33.v),
                       Padding(
                         padding: EdgeInsets.only(left: 2.h),
-                        child: Text(
-                          "lbl_mot_de_passe".tr,
-                          style: theme.textTheme.headlineSmall,
+                        child:
+                        Selector<LogInPageProvider, TextEditingController?>(
+                          selector: (context, provider) =>
+                          provider.passwordController,
+                          builder: (context, passwordController, child) {
+                            return CustomTextFormField(
+                              controller: passwordController,
+                              hintText: "lbl_mot_de_passe".tr,
+                              textInputAction: TextInputAction.done,
+                              textInputType: TextInputType.visiblePassword,
+                              validator: (value) {
+                                if (value == null ||
+                                    (!isValidPassword(
+                                      // Fonction pour check la validité du mot de passe
+                                        value, isRequired: true))) {
+                                  return "err_msg_please_enter_valid_password"
+                                      .tr;
+                                }
+                                return null;
+                              },
+                              borderDecoration:
+                              TextFormFieldStyleHelper.underLinePrimary,
+                              textStyle: TextStyle(color: Colors.white,
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 22.0),
+                            );
+                          },
                         ),
                       ),
                       SizedBox(height: 3.v),
-                      Divider(
-                        color: theme.colorScheme.primary,
-                        indent: 1.h,
-                      ),
                       Spacer(
                         flex: 46,
                       ),

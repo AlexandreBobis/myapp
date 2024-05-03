@@ -11,3 +11,34 @@ bool isValidEmail(String? inputString, {bool isRequired = false}) {
   }
   return isInputStringValid;
 }
+
+bool isValidPassword(String value, {required bool isRequired}) {
+  if (!isRequired && value.isEmpty) {
+    return true; // Empty password is considered valid if not required
+  }
+
+  if (value.isEmpty) {
+    return false; // Empty password is invalid if required
+  }
+
+  // Minimum length requirement (adjust as needed)
+  int minLength = 8;
+  if (value.length < minLength) {
+    return false; // Password too short
+  }
+
+  // Password complexity requirements (adjust as needed)
+  bool hasUppercase = value.contains(RegExp(r'[A-Z]'));
+  bool hasLowercase = value.contains(RegExp(r'[a-z]'));
+  bool hasDigit = value.contains(RegExp(r'[0-9]'));
+  bool hasSpecialCharacters = value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+
+  // At least two different character types required
+  int numComplexityTypes = 0;
+  numComplexityTypes += hasUppercase ? 1 : 0;
+  numComplexityTypes += hasLowercase ? 1 : 0;
+  numComplexityTypes += hasDigit ? 1 : 0;
+  numComplexityTypes += hasSpecialCharacters ? 1 : 0;
+
+  return numComplexityTypes >= 2;
+}
