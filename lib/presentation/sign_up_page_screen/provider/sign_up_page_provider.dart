@@ -14,6 +14,8 @@ class SignUpPageProvider extends ChangeNotifier {
 
   SignUpPageModel signUpPageModelObj = SignUpPageModel();
 
+  get passwordController => null;
+
   @override
   void dispose() {
     super.dispose();

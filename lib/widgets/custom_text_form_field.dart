@@ -117,7 +117,8 @@ class CustomTextFormField extends StatelessWidget {
       );
   InputDecoration get decoration => InputDecoration(
         hintText: hintText ?? "",
-        hintStyle: hintStyle ?? theme.textTheme.headlineSmall,
+        //hintStyle: hintStyle ?? theme.textTheme.headlineSmall,
+        hintStyle: hintStyle ?? TextStyle(color: Colors.black),
         prefixIcon: prefix,
         prefixIconConstraints: prefixConstraints,
         suffixIcon: suffix,
