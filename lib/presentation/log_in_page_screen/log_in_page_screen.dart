@@ -111,6 +111,7 @@ class LogInPageScreenState extends State<LogInPageScreen> {
                           builder: (context, passwordController, child) {
                             return CustomTextFormField(
                               controller: passwordController,
+                              obscureText: true,
                               hintText: "lbl_mot_de_passe".tr,
                               textInputAction: TextInputAction.done,
                               textInputType: TextInputType.visiblePassword,
