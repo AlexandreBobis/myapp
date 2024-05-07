@@ -68,7 +68,12 @@ class MainPageScreenState extends State<MainPageScreen> {
                   return Card(
                     margin: const EdgeInsets.all(10),
                     child: ListTile(
-                      leading: Text(_products[index]["category"]),
+                      //leading: Text(_products[index]["category"]),
+                      leading: Image.network(
+                        _products[index]["image"],
+                        width: 70,
+                        height: 70,
+                      ),
                       title: Text(_products[index]["name"]),
                       subtitle: Text(_products[index]["dlc"]),
                     ),

@@ -23,6 +23,7 @@ flutter:
   assets: 
     - assets/
     - assets/images/
+    - assets/mock/products.json
   fonts: 
     - family: Inter
       fonts: 
