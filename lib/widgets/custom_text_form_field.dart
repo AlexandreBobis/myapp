@@ -3,40 +3,40 @@ import '../core/app_export.dart';
 
 extension TextFormFieldStyleHelper on CustomTextFormField {
   static UnderlineInputBorder get underLinePrimary => UnderlineInputBorder(
-        borderSide: BorderSide(
-          color: theme.colorScheme.primary,
-        ),
-      );
+    borderSide: BorderSide(
+      color: theme.colorScheme.primary,
+    ),
+  );
 }
 
 class CustomTextFormField extends StatelessWidget {
   CustomTextFormField(
       {Key? key,
-      this.alignment,
-      this.width,
-      this.scrollPadding,
-      this.controller,
-      this.focusNode,
-      this.autofocus = false,
-      this.textStyle,
-      this.obscureText = false,
-      this.textInputAction = TextInputAction.next,
-      this.textInputType = TextInputType.text,
-      this.maxLines,
-      this.hintText,
-      this.hintStyle,
-      this.prefix,
-      this.prefixConstraints,
-      this.suffix,
-      this.suffixConstraints,
-      this.contentPadding,
-      this.borderDecoration,
-      this.fillColor,
-      this.filled = false,
-      this.validator})
+        this.alignment,
+        this.width,
+        this.scrollPadding,
+        this.controller,
+        this.focusNode,
+        this.autofocus = false,
+        this.textStyle,
+        this.obscureText = false,
+        this.textInputAction = TextInputAction.next,
+        this.textInputType = TextInputType.text,
+        this.maxLines,
+        this.hintText,
+        this.hintStyle,
+        this.prefix,
+        this.prefixConstraints,
+        this.suffix,
+        this.suffixConstraints,
+        this.contentPadding,
+        this.borderDecoration,
+        this.fillColor,
+        this.filled = false,
+        this.validator})
       : super(
-          key: key,
-        );
+    key: key,
+  );
 
   final Alignment? alignment;
 
@@ -86,63 +86,64 @@ class CustomTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return alignment != null
         ? Align(
-            alignment: alignment ?? Alignment.center,
-            child: textFormFieldWidget(context))
+        alignment: alignment ?? Alignment.center,
+        child: textFormFieldWidget(context))
         : textFormFieldWidget(context);
   }
 
   Widget textFormFieldWidget(BuildContext context) => SizedBox(
-        width: width ?? double.maxFinite,
-        child: TextFormField(
-          scrollPadding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          controller: controller,
-          focusNode: focusNode,
-          onTapOutside: (event) {
-            if (focusNode != null) {
-              focusNode?.unfocus();
-            } else {
-              FocusManager.instance.primaryFocus?.unfocus();
-            }
-          },
-          autofocus: autofocus!,
-          style: textStyle ?? CustomTextStyles.headlineSmallBlack900_1,
-          obscureText: obscureText!,
-          textInputAction: textInputAction,
-          keyboardType: textInputType,
-          maxLines: maxLines ?? 1,
-          decoration: decoration,
-          validator: validator,
-        ),
-      );
+    width: width ?? double.maxFinite,
+    child: TextFormField(
+      scrollPadding:
+      EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      controller: controller,
+      focusNode: focusNode,
+      onTapOutside: (event) {
+        if (focusNode != null) {
+          focusNode?.unfocus();
+        } else {
+          FocusManager.instance.primaryFocus?.unfocus();
+        }
+      },
+      autofocus: autofocus!,
+      style: textStyle ?? CustomTextStyles.headlineSmallBlack900_1,
+      obscureText: obscureText!,
+      textInputAction: textInputAction,
+      keyboardType: textInputType,
+      maxLines: maxLines ?? 1,
+      decoration: decoration,
+      validator: validator,
+    ),
+  );
   InputDecoration get decoration => InputDecoration(
-        hintText: hintText ?? "",
-        hintStyle: hintStyle ?? theme.textTheme.headlineSmall,
-        prefixIcon: prefix,
-        prefixIconConstraints: prefixConstraints,
-        suffixIcon: suffix,
-        suffixIconConstraints: suffixConstraints,
-        isDense: true,
-        contentPadding: contentPadding,
-        fillColor: fillColor,
-        filled: filled,
-        border: borderDecoration ??
-            UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: appTheme.black900,
-              ),
-            ),
-        enabledBorder: borderDecoration ??
-            UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: appTheme.black900,
-              ),
-            ),
-        focusedBorder: borderDecoration ??
-            UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: appTheme.black900,
-              ),
-            ),
-      );
+    hintText: hintText ?? "",
+    //hintStyle: hintStyle ?? theme.textTheme.headlineSmall,
+    hintStyle: hintStyle ?? TextStyle(color: Colors.black),
+    prefixIcon: prefix,
+    prefixIconConstraints: prefixConstraints,
+    suffixIcon: suffix,
+    suffixIconConstraints: suffixConstraints,
+    isDense: true,
+    contentPadding: contentPadding,
+    fillColor: fillColor,
+    filled: filled,
+    border: borderDecoration ??
+        UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: appTheme.black900,
+          ),
+        ),
+    enabledBorder: borderDecoration ??
+        UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: appTheme.black900,
+          ),
+        ),
+    focusedBorder: borderDecoration ??
+        UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: appTheme.black900,
+          ),
+        ),
+  );
 }

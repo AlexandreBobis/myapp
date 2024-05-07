@@ -10,8 +10,8 @@ import 'provider/log_in_page_provider.dart';
 class LogInPageScreen extends StatefulWidget {
   const LogInPageScreen({Key? key})
       : super(
-          key: key,
-        );
+    key: key,
+  );
 
   @override
   LogInPageScreenState createState() => LogInPageScreenState();
@@ -80,6 +80,7 @@ class LogInPageScreenState extends State<LogInPageScreen> {
                           provider.emailController,
                           builder: (context, emailController, child) {
                             return CustomTextFormField(
+                              hintStyle:TextStyle(color: Colors.white),
                               controller: emailController,
                               hintText: "lbl_e_mail".tr,
                               textInputAction: TextInputAction.done,
@@ -110,6 +111,7 @@ class LogInPageScreenState extends State<LogInPageScreen> {
                           provider.passwordController,
                           builder: (context, passwordController, child) {
                             return CustomTextFormField(
+                              hintStyle:TextStyle(color: Colors.white),
                               controller: passwordController,
                               obscureText: true,
                               hintText: "lbl_mot_de_passe".tr,
