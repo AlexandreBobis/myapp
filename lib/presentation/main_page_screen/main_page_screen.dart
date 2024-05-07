@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../core/app_export.dart';
 import '../../widgets/app_bar/appbar_subtitle.dart';
 import '../../widgets/app_bar/appbar_subtitle_one.dart';
@@ -7,15 +8,14 @@ import 'models/main_page_model.dart';
 import 'models/mainpage_item_model.dart';
 import 'provider/main_page_provider.dart';
 import 'widgets/mainpage_item_widget.dart';
+import 'dart:convert';
 
 class MainPageScreen extends StatefulWidget {
-  const MainPageScreen({Key? key})
-      : super(
-          key: key,
-        );
+  const MainPageScreen({Key? key}) : super(key: key);
 
   @override
   MainPageScreenState createState() => MainPageScreenState();
+
   static Widget builder(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => MainPageProvider(),
@@ -28,37 +28,65 @@ class MainPageScreenState extends State<MainPageScreen> {
   @override
   void initState() {
     super.initState();
+    _readJson();
   }
+
+  List _products = []; // Initialisez _items avec une liste vide
+
+  Future<void> _readJson() async {
+    final String response = await rootBundle.loadString('assets/mock/products.json');
+    final data = await json.decode(response);
+      setState(() {
+      _products = data["products"];
+      });
+    }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: _buildAppBar(context),
-        body: Consumer<MainPageProvider>(
-          builder: (context, provider, child) {
-            return ListView.separated(
-              physics: BouncingScrollPhysics(),
-              shrinkWrap: true,
-              separatorBuilder: (context, index) {
-                return SizedBox(
-                  height: 1.v,
-                );
-              },
-              itemCount: provider.mainPageModelObj.mainpageItemList.length,
-              itemBuilder: (context, index) {
-                MainpageItemModel model =
-                    provider.mainPageModelObj.mainpageItemList[index];
-                return MainpageItemWidget(
-                  model,
-                );
-              },
-            );
-          },
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          'Kindacode.com',
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(25),
+        child: Column(
+          children: [
+            ElevatedButton(
+              child: const Text('Load Data'),
+              onPressed: _readJson,
+            ),
+
+            // Display the data loaded from sample.json
+            _products.isNotEmpty
+                ? Expanded(
+              child: ListView.builder(
+                itemCount: _products.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    margin: const EdgeInsets.all(10),
+                    child: ListTile(
+                      leading: Text(_products[index]["category"]),
+                      title: Text(_products[index]["name"]),
+                      subtitle: Text(_products[index]["dlc"]),
+                    ),
+                  );
+                },
+              ),
+            )
+                : Container()
+          ],
         ),
       ),
     );
   }
+}
+
+
+
+
 
   /// Section Widget
   PreferredSizeWidget _buildAppBar(BuildContext context) {
@@ -82,4 +110,5 @@ class MainPageScreenState extends State<MainPageScreen> {
       styleType: Style.bgFill,
     );
   }
-}
+
+
