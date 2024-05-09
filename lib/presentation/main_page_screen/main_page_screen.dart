@@ -44,12 +44,7 @@ class MainPageScreenState extends State<MainPageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          'Kindacode.com',
-        ),
-      ),
+      appBar: _buildAppBar(context),
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: Column(
@@ -75,7 +70,13 @@ class MainPageScreenState extends State<MainPageScreen> {
                         height: 70,
                       ),
                       title: Text(_products[index]["name"]),
-                      subtitle: Text(_products[index]["dlc"]),
+                      subtitle: Column (
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children:<Widget>[
+                          Text(_products[index]["quantity"].toString()),
+                          Text(_products[index]["dlc"]),
+                        ],
+                      )
                     ),
                   );
                 },
