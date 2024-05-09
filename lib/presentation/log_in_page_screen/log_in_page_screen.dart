@@ -36,6 +36,7 @@ class LogInPageScreenState extends State<LogInPageScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top:false,
       child: Scaffold(
         backgroundColor: appTheme.green500,
         resizeToAvoidBottomInset: false,

@@ -30,6 +30,7 @@ class LoadingPageScreenState extends State<LoadingPageScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top:false,
       child: Scaffold(
         backgroundColor: appTheme.green500,
         body: Container(

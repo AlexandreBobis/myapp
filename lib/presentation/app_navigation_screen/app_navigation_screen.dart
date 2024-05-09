@@ -28,6 +28,7 @@ class AppNavigationScreenState extends State<AppNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top:false,
       child: Scaffold(
         body: SizedBox(
           width: 375.h,

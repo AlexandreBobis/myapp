@@ -36,9 +36,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
-      toolbarHeight: height ?? 83.v,
+      toolbarHeight: height ?? 100.v,
       automaticallyImplyLeading: false,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.black, //a remettre en transparent
       flexibleSpace: _getStyle(),
       leadingWidth: leadingWidth ?? 0,
       leading: leading,
@@ -52,13 +52,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size(
         SizeUtils.width,
-        height ?? 83.v,
+        height ?? 75.v,
       );
   _getStyle() {
     switch (styleType) {
       case Style.bgFill:
         return Container(
-          height: 83.v,
+          height: 100.v,
           width: double.maxFinite,
           decoration: BoxDecoration(
             color: appTheme.green500,

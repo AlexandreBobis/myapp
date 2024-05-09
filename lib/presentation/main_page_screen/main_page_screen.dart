@@ -44,6 +44,7 @@ class MainPageScreenState extends State<MainPageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(240, 255, 244, 1),
       appBar: _buildAppBar(context),
       body: Padding(
         padding: const EdgeInsets.all(25),
@@ -73,8 +74,8 @@ class MainPageScreenState extends State<MainPageScreen> {
                       subtitle: Column (
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children:<Widget>[
-                          Text(_products[index]["quantity"].toString()),
-                          Text(_products[index]["dlc"]),
+                          Text("Quantité : ${_products[index]["quantity"].toString()}"),
+                          Text("DLC : ${_products[index]["dlc"]}"),
                         ],
                       )
                     ),
@@ -95,26 +96,44 @@ class MainPageScreenState extends State<MainPageScreen> {
 
 
   /// Section Widget
-  PreferredSizeWidget _buildAppBar(BuildContext context) {
-    return CustomAppBar(
-      title: AppbarSubtitleOne(
-        text: "lbl_votre_profil".tr,
-        margin: EdgeInsets.only(left: 22.h),
+PreferredSizeWidget _buildAppBar(BuildContext context) {
+  return CustomAppBar(
+    title: AppbarSubtitleOne(
+      text: "Vos Produits".tr,
+      margin: EdgeInsets.only(left: 22.h),
+    ),
+    actions: [
+      SizedBox(
+        height: 45.h,
+        width: 45.h,
+        child: Padding(
+          padding: EdgeInsets.only(right: 10.h),
+          child: TextButton(
+            onPressed: () {
+              // Navigate to your desired page here
+              //Navigator.push(
+                //context,
+                //MaterialPageRoute(builder: (context) => add_product_page()),
+              //);
+            },
+            child: Icon(
+              Icons.add,
+              color: appTheme.green500,
+              size: 30.h,
+            ),
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.only(right: 0),
+              backgroundColor: Colors.white,
+              shape: CircleBorder(),
+            ),
+          ),
+        ),
       ),
-      actions: [
-        Container(
-          margin: EdgeInsets.fromLTRB(16.h, 14.v, 16.h, 18.v),
-          padding: EdgeInsets.symmetric(horizontal: 24.h),
-          decoration: AppDecoration.fillPrimary.copyWith(
-            borderRadius: BorderRadiusStyle.roundedBorder5,
-          ),
-          child: AppbarSubtitle(
-            text: "lbl".tr,
-          ),
-        )
-      ],
-      styleType: Style.bgFill,
-    );
-  }
+    ],
+    styleType: Style.bgFill,
+  );
+}
+
+
 
 
