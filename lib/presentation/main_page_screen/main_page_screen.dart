@@ -68,7 +68,9 @@ class MainPageScreenState extends State<MainPageScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DetailsPageScreen(product: _products[index]),
+                          builder: (context) => DetailsPageScreen(
+                              //product: _products[index]
+                          ),
                         ),
                       );
                     },
