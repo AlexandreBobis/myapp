@@ -4,6 +4,7 @@ import '../../core/app_export.dart';
 import '../../widgets/app_bar/appbar_subtitle.dart';
 import '../../widgets/app_bar/appbar_subtitle_one.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
+import '../details_page_screen/details_page_screen.dart';
 import 'models/main_page_model.dart';
 import 'models/mainpage_item_model.dart';
 import 'provider/main_page_provider.dart';
@@ -55,35 +56,49 @@ class MainPageScreenState extends State<MainPageScreen> {
               onPressed: _readJson,
             ),
 
-            // Display the data loaded from sample.json
+            // Display the data loaded from products.json
             _products.isNotEmpty
                 ? Expanded(
               child: ListView.builder(
                 itemCount: _products.length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    margin: const EdgeInsets.all(10),
-                    child: ListTile(
-                      //leading: Text(_products[index]["category"]),
-                      leading: Image.network(
-                        _products[index]["image"],
-                        width: 70,
-                        height: 70,
+                  return InkWell( // Wrap the Card with InkWell
+                    onTap: () {
+                      // Navigate to detail_page_screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailsPageScreen(product: _products[index]),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      margin: const EdgeInsets.all(10),
+                      child: ListTile(
+                        leading: SizedBox(
+                          width: 70.0, // Adjust width as needed
+                          height: 70.0, // Adjust height if needed
+                          child: Image.network(
+                            _products[index]["image"],
+                          ),
+                        ),
+                        title: Text(_products[index]["name"]),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Quantité : ${_products[index]["quantity"].toString()}",
+                            ),
+                            Text("DLC : ${_products[index]["dlc"]}"),
+                          ],
+                        ),
                       ),
-                      title: Text(_products[index]["name"]),
-                      subtitle: Column (
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children:<Widget>[
-                          Text("Quantité : ${_products[index]["quantity"].toString()}"),
-                          Text("DLC : ${_products[index]["dlc"]}"),
-                        ],
-                      )
                     ),
                   );
                 },
               ),
             )
-                : Container()
+                : Container(),
           ],
         ),
       ),

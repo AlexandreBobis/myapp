@@ -5,22 +5,19 @@ import '../../widgets/app_bar/appbar_leading_iconbutton.dart';
 import '../../widgets/app_bar/appbar_subtitle_one.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
 import 'models/details_page_model.dart';
-import 'provider/details_page_provider.dart';
 
 class DetailsPageScreen extends StatefulWidget {
-  const DetailsPageScreen({Key? key})
-      : super(
-          key: key,
-        );
+  final DetailsPageModel? product; // Make product optional
+
+  const DetailsPageScreen({Key? key, this.product}) : super(key: key);
+
+  // Static builder function
+  static Widget builder(BuildContext context, [DetailsPageModel? product]) {
+    return DetailsPageScreen(product: product);
+  }
 
   @override
   DetailsPageScreenState createState() => DetailsPageScreenState();
-  static Widget builder(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => DetailsPageProvider(),
-      child: DetailsPageScreen(),
-    );
-  }
 }
 
 class DetailsPageScreenState extends State<DetailsPageScreen> {
@@ -32,6 +29,7 @@ class DetailsPageScreenState extends State<DetailsPageScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: false,
       child: Scaffold(
         appBar: _buildAppBar(context),
         body: SizedBox(
