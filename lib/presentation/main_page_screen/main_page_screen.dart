@@ -110,20 +110,32 @@ class MainPageScreenState extends State<MainPageScreen> {
                               right: 0, // Ajustez selon vos besoins
                               top: 0, // Ajustez selon vos besoins
                               bottom: 0, // Ajustez selon vos besoins
+
                               child: ClipPath(
                                 child: Container(
                                   padding: EdgeInsets.all(16),
                                   decoration: BoxDecoration(
                                     border: Border(
-                                      right: BorderSide(color: Colors.blue, width: 30),
+                                      right: BorderSide(color: Colors.blue, width: 65),
                                     ),
                                   ),
+
                                 ),
                                 clipper: ShapeBorderClipper(
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(12))),
                               ),
                             ),
+                          Positioned(
+                            right: 10,
+                            top: 22, // Ajustez selon vos besoins
+                            child: Text("+99 j",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 22,
+                            )
+                          ))
                         ],
                       ),
                     ),
