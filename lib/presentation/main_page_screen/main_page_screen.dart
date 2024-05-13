@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../core/app_export.dart';
@@ -77,26 +75,56 @@ class MainPageScreenState extends State<MainPageScreen> {
                       );
                     },
                     child: Card(
-                      margin: const EdgeInsets.all(10),
-                      child: ListTile(
-                        leading: SizedBox(
-                          width: 70.0, // Adjust width as needed
-                          height: 70.0, // Adjust height if needed
-                          child: Image.network(
-                            _products[index]["image"],
-                          ),
+                      margin: const EdgeInsets.all(8),
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          color: Colors.blue,
+                          width: 2, //<-- SEE HERE
                         ),
-                        title: Text(_products[index]["name"]),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              "Quantité : ${_products[index]["quantity"].toString()}",
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      child: Stack(
+                        children: [
+                          // Contenu principal de la Card
+                          ListTile(
+                            leading: SizedBox(
+                              width: 70.0,
+                              height: 70.0,
+                              child: Image.network(
+                                _products[index]["image"],
+                              ),
                             ),
-                            Text("DLC : ${_products[index]["dlc"]}"),
-                          ],
-                        ),
-                        trailing: MyPainter(context),
+                            title: Text(_products[index]["name"]),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "Quantité : ${_products[index]["quantity"].toString()}",
+                                ),
+                                Text("DLC : ${_products[index]["dlc"]}"),
+                              ],
+                            ),
+                          ),
+                          // Positionnement de MyArc à l'extrémité du bord droit
+                            Positioned(
+                              right: 0, // Ajustez selon vos besoins
+                              top: 0, // Ajustez selon vos besoins
+                              bottom: 0, // Ajustez selon vos besoins
+                              child: ClipPath(
+                                child: Container(
+                                  padding: EdgeInsets.all(16),
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      right: BorderSide(color: Colors.blue, width: 30),
+                                    ),
+                                  ),
+                                ),
+                                clipper: ShapeBorderClipper(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12))),
+                              ),
+                            ),
+                        ],
                       ),
                     ),
                   );

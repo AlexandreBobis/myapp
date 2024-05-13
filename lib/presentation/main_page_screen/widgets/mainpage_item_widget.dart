@@ -28,7 +28,7 @@ import 'dart:math' as math;
 class MyArc extends StatelessWidget {
   final double diameter;
 
-  const MyArc({super.key, this.diameter = 200});
+  const MyArc({Key? key, this.diameter = 80}) :super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +51,9 @@ class MyPainter extends CustomPainter {
         height: size.height,
         width: size.width,
       ),
+      math.pi/2,
       math.pi,
-      math.pi,
-      false,
+      true,
       paint,
     );
   }
