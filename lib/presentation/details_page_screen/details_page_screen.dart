@@ -32,6 +32,7 @@ class DetailsPageScreenState extends State<DetailsPageScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: false,
       child: Scaffold(
         appBar: _buildAppBar(context),
         body: SizedBox(

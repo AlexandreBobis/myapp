@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../core/app_export.dart';
 import '../models/mainpage_item_model.dart'; // ignore: must_be_immutable
-// ignore_for_file: must_be_immutable
+/*// ignore_for_file: must_be_immutable
 
 // ignore_for_file: must_be_immutable
 class MainpageItemWidget extends StatelessWidget {
@@ -20,4 +20,44 @@ class MainpageItemWidget extends StatelessWidget {
       width: 86.h,
     );
   }
+}
+*/
+
+import 'dart:math' as math;
+
+class MyArc extends StatelessWidget {
+  final double diameter;
+
+  const MyArc({super.key, this.diameter = 200});
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      painter: MyPainter(),
+      size: Size(diameter, diameter),
+    );
+  }
+}
+
+
+// This is the Painter class
+class MyPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()..color = Colors.blue;
+    canvas.drawArc(
+      Rect.fromCenter(
+        center: Offset(size.height / 2, size.width / 2),
+        height: size.height,
+        width: size.width,
+      ),
+      math.pi,
+      math.pi,
+      false,
+      paint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }

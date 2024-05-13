@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../core/app_export.dart';
@@ -94,6 +96,7 @@ class MainPageScreenState extends State<MainPageScreen> {
                             Text("DLC : ${_products[index]["dlc"]}"),
                           ],
                         ),
+                        trailing: MyPainter(context),
                       ),
                     ),
                   );
