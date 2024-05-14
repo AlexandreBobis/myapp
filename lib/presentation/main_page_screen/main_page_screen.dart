@@ -42,6 +42,15 @@ class MainPageScreenState extends State<MainPageScreen> {
     final data = await json.decode(response);
     setState(() {
       _products = data["products"];
+      _sortProductsByDaysDifference(); // Sort products on data load
+    });
+  }
+
+  void _sortProductsByDaysDifference() {
+    _products.sort((a, b) {
+      final daysDifferenceA = _calculateDaysDifference(a["dlc"]);
+      final daysDifferenceB = _calculateDaysDifference(b["dlc"]);
+      return daysDifferenceA.compareTo(daysDifferenceB);
     });
   }
 
@@ -67,11 +76,11 @@ class MainPageScreenState extends State<MainPageScreen> {
   // Function to determine color based on days difference
   Color _getColorByDaysDifference(int daysDifference) {
     if (daysDifference <= 2) {
-      return Colors.red;
+      return Color.fromRGBO(253, 1, 1, 1);
     } else if (daysDifference <= 4) {
       return Colors.orange;
     } else if (daysDifference <= 7) {
-      return Colors.yellow;
+      return Color.fromRGBO(255, 222, 60, 1);
     } else if (daysDifference <= 14) {
       return Colors.green;
     } else {
@@ -161,7 +170,7 @@ class MainPageScreenState extends State<MainPageScreen> {
                               "${daysDifference} j",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: textColor,
+                                color: Colors.white,
                                 fontSize: 22,
                               ),
                             ),

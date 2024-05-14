@@ -1,28 +1,28 @@
 {
   "products" :[
     {
-      "id": 8002270015328,
-      "image": "https://images.openfoodfacts.org/images/products/800/227/001/5328/front_fr.104.400.jpg",
-      "name": "S.PELLEGRINO 50cl",
-      "dlc": "20/03/25",
-      "quantity": 2,
-      "category": "Boissons",
-      "conservation_conditions": "A conserver à l'abri du soleil et du gel, dans un endroit propre et sans odeur."
-    },
-    {
       "id": 12111999,
       "image": "https://resize.elle.fr/article_1280_webp/var/plain_site/storage/images/societe/news/une-grand-mere-atteinte-d-un-cancer-devient-la-star-d-instagram-2689254/46790536-1-fre-FR/Une-grand-mere-atteinte-d-un-cancer-devient-la-star-d-Instagram.jpg",
       "name": "Hélène",
-      "dlc": "10/11/28",
+      "dlc": "18/05/24",
       "quantity": 1,
       "category": "mamie",
       "conservation_conditions": "A conserver à l'abri du soleil et du gel, dans un EHPAD et avec des chats."
     },
     {
+      "id": 8002270015328,
+      "image": "https://images.openfoodfacts.org/images/products/800/227/001/5328/front_fr.104.400.jpg",
+      "name": "S.PELLEGRINO 50cl",
+      "dlc": "15/05/24",
+      "quantity": 2,
+      "category": "Boissons",
+      "conservation_conditions": "A conserver à l'abri du soleil et du gel, dans un endroit propre et sans odeur."
+    },
+    {
       "id": 3033490006006,
       "image": "https://resize.elle.fr/article_1280_webp/var/plain_site/storage/images/societe/news/une-grand-mere-atteinte-d-un-cancer-devient-la-star-d-instagram-2689254/46790536-1-fre-FR/Une-grand-mere-atteinte-d-un-cancer-devient-la-star-d-Instagram.jpg",
-      "name": "Fromage frais type petit suisse, nature, 0% MG",
-      "dlc": "16/05/24",
+      "name": "Fromage frais petit suisse",
+      "dlc": "21/05/24",
       "quantity": 4,
       "category": "Fromage Blanc",
       "conservation_conditions": "Au frigo."
