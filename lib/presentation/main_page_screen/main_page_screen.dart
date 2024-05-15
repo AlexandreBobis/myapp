@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart'; // Import for date formatting
 
+
 class MainPageScreen extends StatefulWidget {
   const MainPageScreen({Key? key}) : super(key: key);
 
@@ -121,7 +122,7 @@ class MainPageScreenState extends State<MainPageScreen> {
                       );
                     },
                     child: Card(
-                      margin: const EdgeInsets.all(8),
+                      margin: const EdgeInsets.all(3),
                       shape: RoundedRectangleBorder(
                         side: BorderSide(color: color, width: 2),
                         borderRadius: BorderRadius.circular(12.0),
@@ -130,8 +131,8 @@ class MainPageScreenState extends State<MainPageScreen> {
                         children: [
                           ListTile(
                             leading: SizedBox(
-                              width: 70.0,
-                              height: 70.0,
+                              width: 60.0,
+                              height: 60.0,
                               child: Image.network(_products[index]["image"]),
                             ),
                             title: Text(_products[index]["name"]),
