@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'core/app_export.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 var globalMessengerKey = GlobalKey<ScaffoldMessengerState>();
-void main() async{
-  await dotenv.load(fileName: ".env");
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   Future.wait([
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]),
     PrefUtils().init()
@@ -19,7 +19,6 @@ void main() async{
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    String? apiKey = dotenv.env['API_KEY'];
     return Sizer(
       builder: (context, orientation, deviceType) {
         return ChangeNotifierProvider<ThemeProvider>(
