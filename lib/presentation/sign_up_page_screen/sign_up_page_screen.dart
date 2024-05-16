@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:perim_app/supabase_initialization.dart';
 import '../../core/app_export.dart';
 import '../../core/utils/validation_functions.dart';
 import '../../theme/custom_button_style.dart';
@@ -10,13 +11,11 @@ import 'models/sign_up_page_model.dart';
 import 'provider/sign_up_page_provider.dart';
 
 class SignUpPageScreen extends StatefulWidget {
-  const SignUpPageScreen({Key? key})
-      : super(
-    key: key,
-  );
+  const SignUpPageScreen({Key? key}) : super(key: key);
 
   @override
   SignUpPageScreenState createState() => SignUpPageScreenState();
+
   static Widget builder(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => SignUpPageProvider(),
@@ -24,14 +23,15 @@ class SignUpPageScreen extends StatefulWidget {
     );
   }
 }
-// ignore_for_file: must_be_immutable
 
 // ignore_for_file: must_be_immutable
+
 class SignUpPageScreenState extends State<SignUpPageScreen> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
+    initializeSupabase();
     super.initState();
   }
 
@@ -40,7 +40,6 @@ class SignUpPageScreenState extends State<SignUpPageScreen> {
     return SafeArea(
       top: false,
       child: Scaffold(
-
         resizeToAvoidBottomInset: false,
         appBar: _buildAppBar(context),
         body: Center(
