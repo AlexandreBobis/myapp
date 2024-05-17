@@ -8,6 +8,9 @@ import '../../widgets/custom_elevated_button.dart';
 import '../../widgets/custom_text_form_field.dart';
 import 'models/sign_up_page_model.dart';
 import 'provider/sign_up_page_provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+final supabase = Supabase.instance.client;
 
 class SignUpPageScreen extends StatefulWidget {
   const SignUpPageScreen({Key? key})
@@ -29,6 +32,8 @@ class SignUpPageScreen extends StatefulWidget {
 // ignore_for_file: must_be_immutable
 class SignUpPageScreenState extends State<SignUpPageScreen> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -109,10 +114,16 @@ class SignUpPageScreenState extends State<SignUpPageScreen> {
                           right: 25.h,
                         ),
                         buttonStyle: CustomButtonStyles.fillGreen,
-                        onPressed: () {
+                        onPressed: () async {
+                          final sm = ScaffoldMessenger.of(context);
+                          final authResponse = await supabase.auth.signUp(
+                              password: passwordController.text, email: emailController.text);
+                          sm.showSnackBar(SnackBar(
+                              content: Text("Logged In: ${authResponse.user!.email!}")));
                           onTapSuivant(context);
                         },
                         alignment: Alignment.center,
+                          //child: Text('sign_up'.tr);
                       ),
                       SizedBox(height: 22.v),
                       CustomElevatedButton(
