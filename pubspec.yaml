@@ -19,6 +19,7 @@ dependencies:
   flutter_dotenv: 5.1.0
   supabase_flutter: ^2.5.3
   supabase_auth_ui: ^0.4.4
+  retry: ^3.1.2
 dev_dependencies: 
   flutter_test: 
     sdk: flutter

@@ -10,6 +10,7 @@ import '../../widgets/custom_text_form_field.dart';
 import 'models/sign_up_page_model.dart';
 import 'provider/sign_up_page_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:retry/retry.dart';
 
 final supabase = Supabase.instance.client;
 
@@ -115,14 +116,19 @@ class SignUpPageScreenState extends State<SignUpPageScreen> {
                         buttonStyle: CustomButtonStyles.fillGreen,
                         onPressed: () async {
                           final sm = ScaffoldMessenger.of(context);
-                          final authResponse = await supabase.auth.signUp(
-                              password: passwordController.text, email: emailController.text);
-                          sm.showSnackBar(SnackBar(
-                              content: Text("Logged In: ${authResponse.user!.email!}")));
-                          onTapSuivant(context);
+                          try {
+                            await retry(() async {
+                              final authResponse = await supabase.auth.signUp(
+                                  password: passwordController.text, email: emailController.text);
+                              sm.showSnackBar(SnackBar(
+                                  content: Text("Logged In: ${authResponse.user!.email}")));
+                              onTapSuivant(context);
+                            }, maxAttempts: 3); // Spécifiez le nombre maximal de tentatives
+                          } catch (e) {
+                            sm.showSnackBar(SnackBar(content: Text("Sign Up Failed: $e")));
+                          }
                         },
                         alignment: Alignment.center,
-                          //child: Text('sign_up'.tr);
                       ),
                       SizedBox(height: 22.v),
                       CustomElevatedButton(
