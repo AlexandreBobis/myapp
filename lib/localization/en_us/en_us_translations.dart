@@ -16,6 +16,7 @@ final Map<String, String> enUs = {
   "msg_lorem_ipsum_dolor":
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   "msg_photo_de_l_article": "Photo de l’article",
+  "lbl_nb_jour": "Nombre de jours",
 
   // Common String
   "lbl_dlc": "DLC",

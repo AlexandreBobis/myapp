@@ -6,6 +6,10 @@ import '../../widgets/app_bar/appbar_subtitle_one.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
 import 'models/details_page_model.dart';
 import 'provider/details_page_provider.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
+import '../../utils/color.dart';
+
 
 class DetailsPageScreen extends StatefulWidget {
   const DetailsPageScreen({Key? key})
@@ -24,13 +28,54 @@ class DetailsPageScreen extends StatefulWidget {
 }
 
 class DetailsPageScreenState extends State<DetailsPageScreen> {
+  int? productId;
+  Product? product;
+  int? daysDifference;
+
+
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _getProductId();
   }
+
+
+  Future<void> _getProductId() async {
+    final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    if (args.containsKey('id') && args.containsKey('daysDifference')) {
+      setState(() {
+        productId = args['id'];
+        daysDifference = args['daysDifference'];
+        _getProductDetails(productId ?? 0);
+        print("ID du produit sélectionné : $productId");
+        print("Jours restant du produit sélectionné : $daysDifference");
+      });
+    }
+  }
+
+
+  Future<void> _getProductDetails(int id) async {
+    final jsonString = await rootBundle.loadString('assets/mock/products.json');
+    final jsonData = jsonDecode(jsonString);
+    final products = jsonData['products'];
+
+    for (var productData in products) {
+      if (productData['id'] == id) {
+        setState(() {
+          product = Product.fromJson(productData);
+          print("Nom du produit : ${product?.name}");
+          print("Image du produit : ${product?.image}");
+        });
+        break;
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
+    //final productId = ModalRoute.of(context)!.settings.arguments as int?;
+   // print("ID du produit sélectionné : $productId");
     return SafeArea(
       top: false,
       child: Scaffold(
@@ -49,12 +94,11 @@ class DetailsPageScreenState extends State<DetailsPageScreen> {
                     children: [
                       SizedBox(height: 14.v),
                       SizedBox(
-                        width: 175.h,
-                        child: Text(
+                        width: 175.v,
+                        child: Image.network(
+                          product?.image ??
                           "msg_photo_de_l_article".tr,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: CustomTextStyles.displayMediumBlack900_1,
+                          fit: BoxFit.cover,
                         ),
                       )
                     ],
@@ -62,17 +106,17 @@ class DetailsPageScreenState extends State<DetailsPageScreen> {
                 ),
                 SizedBox(height: 17.v),
                 Text(
-                  "lbl_nom_produit".tr,
+                  product?.name ?? "lbl_nom_produit".tr,
                   style: theme.textTheme.headlineLarge,
                 ),
                 SizedBox(height: 11.v),
                 Text(
-                  "lbl_dlc".tr,
+                  product?.dlc ?? "lbl_dlc".tr,
                   style: CustomTextStyles.headlineSmallBlack900,
                 ),
                 SizedBox(height: 18.v),
                 Text(
-                  "lbl_quantit".tr,
+                  product?.quantity.toString() ?? "lbl_quantit".tr,
                   style: CustomTextStyles.headlineSmallBlack900,
                 ),
                 SizedBox(height: 40.v),
@@ -125,7 +169,7 @@ class DetailsPageScreenState extends State<DetailsPageScreen> {
           SizedBox(
             width: 310.h,
             child: Text(
-              "msg_lorem_ipsum_dolor".tr,
+              product?.conservationConditions ?? "msg_lorem_ipsum_dolor".tr,
               maxLines: 5,
               overflow: TextOverflow.ellipsis,
               style: CustomTextStyles.headlineSmallBlack900,
@@ -138,27 +182,30 @@ class DetailsPageScreenState extends State<DetailsPageScreen> {
 
   /// Section Widget
   Widget _buildColumnJoursCount(BuildContext context) {
-    return Container(
+    return Center (
+      child: Container(
       padding: EdgeInsets.symmetric(
-        horizontal: 134.h,
         vertical: 17.v,
       ),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: fs.Svg(
-            ImageConstant.imgGroup11,
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle, // Forme du conteneur
+          borderRadius: BorderRadius.only( // Coins arrondis
+            topLeft: Radius.circular(100), // Rayon du cercle
+            topRight: Radius.circular(100), // Rayon du cercle
           ),
-          fit: BoxFit.cover,
+          color: getColorByDaysDifference(daysDifference ?? 0), // Couleur du demi-cercle
         ),
-      ),
-      child: Column(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(height: 10.v),
           Text(
-            "lbl_2_jours".tr,
+            '${daysDifference?.toString() ?? "lbl_nb_jour".tr} '
+                '${(daysDifference ?? 0) > 1 ? "jours" : "jour"}',
             style: theme.textTheme.displaySmall,
-          )
-        ],
+           )
+         ],
+        ),
       ),
     );
   }
