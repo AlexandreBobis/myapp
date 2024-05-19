@@ -12,7 +12,9 @@ import 'widgets/mainpage_item_widget.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart'; // Import for date formatting
+import 'package:intl/intl.dart';// Import for date formatting
+import '../../utils/color.dart';
+
 
 
 class MainPageScreen extends StatefulWidget {
@@ -60,6 +62,7 @@ class MainPageScreenState extends State<MainPageScreen> {
     final dateFormat = DateFormat('dd/MM/yy');
     final dlcDate = dateFormat.parse(dlc); // Parse DLC string to DateTime
     final today = DateTime.now();
+    //final color = getColorByDaysDifference(daysDifference);
 
     // Remove time components from dates for accurate comparison
     final normalizedDlcDate = DateTime(dlcDate.year, dlcDate.month, dlcDate.day);
@@ -71,21 +74,6 @@ class MainPageScreenState extends State<MainPageScreen> {
       return 0; // Dates are the same, return 0 days difference
     } else {
       return difference.abs(); // Return absolute difference in days
-    }
-  }
-
-  // Function to determine color based on days difference
-  Color _getColorByDaysDifference(int daysDifference) {
-    if (daysDifference <= 2) {
-      return Color.fromRGBO(253, 1, 1, 1);
-    } else if (daysDifference <= 4) {
-      return Colors.orange;
-    } else if (daysDifference <= 7) {
-      return Color.fromRGBO(255, 222, 60, 1);
-    } else if (daysDifference <= 14) {
-      return Colors.green;
-    } else {
-      return Colors.blue;
     }
   }
 
@@ -108,8 +96,8 @@ class MainPageScreenState extends State<MainPageScreen> {
                 itemCount: _products.length,
                 itemBuilder: (context, index) {
                   final dlc = _products[index]["dlc"] as String;
-                  final daysDifference = _calculateDaysDifference(dlc);
-                  final color = _getColorByDaysDifference(daysDifference);
+                  int daysDifference = _calculateDaysDifference(dlc);
+                  final color = getColorByDaysDifference(daysDifference);
                   final textColor = color.computeLuminance() < 0.5?Colors.white:Colors.black;
 
                   return InkWell(
@@ -118,6 +106,12 @@ class MainPageScreenState extends State<MainPageScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => DetailsPageScreen(),
+                          settings: RouteSettings(
+                              arguments: {
+                                'id': _products[index]["id"],
+                                'daysDifference': daysDifference,
+                              }
+                          ),
                         ),
                       );
                     },
