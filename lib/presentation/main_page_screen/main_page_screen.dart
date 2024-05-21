@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';// Import for date formatting
 import '../../utils/color.dart';
-
+import '../../utils/date_calculation.dart';
 
 
 class MainPageScreen extends StatefulWidget {
@@ -32,49 +32,23 @@ class MainPageScreen extends StatefulWidget {
 }
 
 class MainPageScreenState extends State<MainPageScreen> {
-  List _products = [];
+  List<Map<String, dynamic>> _products = [];
+  late DateCalculation dateCalculation;
 
   @override
   void initState() {
     super.initState();
     _readJson();
+    dateCalculation = DateCalculation();
   }
 
   Future<void> _readJson() async {
     final String response = await rootBundle.loadString('assets/mock/products.json');
     final data = await json.decode(response);
     setState(() {
-      _products = data["products"];
-      _sortProductsByDaysDifference(); // Sort products on data load
+      _products = List<Map<String, dynamic>>.from(data["products"].map((product) => product));
+      dateCalculation.sortProductsByDaysDifference(_products);
     });
-  }
-
-  void _sortProductsByDaysDifference() {
-    _products.sort((a, b) {
-      final daysDifferenceA = _calculateDaysDifference(a["dlc"]);
-      final daysDifferenceB = _calculateDaysDifference(b["dlc"]);
-      return daysDifferenceA.compareTo(daysDifferenceB);
-    });
-  }
-
-  // Function to calculate the difference in days between two dates
-  int _calculateDaysDifference(String dlc) {
-    final dateFormat = DateFormat('dd/MM/yy');
-    final dlcDate = dateFormat.parse(dlc); // Parse DLC string to DateTime
-    final today = DateTime.now();
-    //final color = getColorByDaysDifference(daysDifference);
-
-    // Remove time components from dates for accurate comparison
-    final normalizedDlcDate = DateTime(dlcDate.year, dlcDate.month, dlcDate.day);
-    final normalizedToday = DateTime(today.year, today.month, today.day);
-
-    final difference = normalizedDlcDate.difference(normalizedToday).inDays;
-
-    if (normalizedDlcDate.isAtSameMomentAs(normalizedToday)) {
-      return 0; // Dates are the same, return 0 days difference
-    } else {
-      return difference.abs(); // Return absolute difference in days
-    }
   }
 
   @override
@@ -96,7 +70,7 @@ class MainPageScreenState extends State<MainPageScreen> {
                 itemCount: _products.length,
                 itemBuilder: (context, index) {
                   final dlc = _products[index]["dlc"] as String;
-                  int daysDifference = _calculateDaysDifference(dlc);
+                  int daysDifference = dateCalculation.calculateDaysDifference(dlc);
                   final color = getColorByDaysDifference(daysDifference);
                   final textColor = color.computeLuminance() < 0.5?Colors.white:Colors.black;
 
