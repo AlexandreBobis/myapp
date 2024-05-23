@@ -6,6 +6,7 @@ import '../presentation/loading_page_screen/loading_page_screen.dart';
 import '../presentation/log_in_page_screen/log_in_page_screen.dart';
 import '../presentation/main_page_screen/main_page_screen.dart';
 import '../presentation/sign_up_page_screen/sign_up_page_screen.dart';
+import '../presentation/add_manual_product_page_screen/add_manual_product_page_screen.dart';
 
 class AppRoutes {
   static const String loadingPageScreen = '/loading_page_screen';
@@ -20,7 +21,10 @@ class AppRoutes {
 
   static const String appNavigationScreen = '/app_navigation_screen';
 
+  static const String addManualProductPageScreen = '/add_manual_product_page_screen';
+
   static const String initialRoute = '/initialRoute';
+
 
   static Map<String, WidgetBuilder> get routes => {
         loadingPageScreen: LoadingPageScreen.builder,
@@ -29,6 +33,7 @@ class AppRoutes {
         mainPageScreen: MainPageScreen.builder,
         detailsPageScreen: DetailsPageScreen.builder,
         appNavigationScreen: AppNavigationScreen.builder,
+        addManualProductPageScreen: AddManualProductPageScreen.builder,
         initialRoute: LoadingPageScreen.builder
       };
 }

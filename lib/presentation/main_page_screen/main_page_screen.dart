@@ -175,11 +175,7 @@ PreferredSizeWidget _buildAppBar(BuildContext context) {
           padding: EdgeInsets.only(right: 10.h),
           child: TextButton(
             onPressed: () {
-              // Navigate to your desired page here
-              //Navigator.push(
-                //context,
-                //MaterialPageRoute(builder: (context) => add_product_page()),
-              //);
+              onTapAddProduct(context);
             },
             child: Icon(
               Icons.add,
@@ -198,6 +194,13 @@ PreferredSizeWidget _buildAppBar(BuildContext context) {
     styleType: Style.bgFill,
   );
 }
+
+  void onTapAddProduct(BuildContext context) {
+    NavigatorService.pushNamed(
+      AppRoutes.addManualProductPageScreen,
+    );
+}
+
 
 
 
